@@ -1,2 +1,8 @@
+ru/stqa/frepo/sandbox/Rectangle.java
+ ru.stqa.frepo.sandbox.Rectangle
+ru/stqa/frepo/sandbox/Square.java
+ ru.stqa.frepo.sandbox.Square
 ru/stqa/frepo/sandbox/MyFirstProgram.java
  ru.stqa.frepo.sandbox.MyFirstProgram
+ru/stqa/frepo/sandbox/Point.java
+ ru.stqa.frepo.sandbox.Point
