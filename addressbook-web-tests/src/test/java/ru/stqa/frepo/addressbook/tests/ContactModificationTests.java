@@ -7,9 +7,17 @@ public class ContactModificationTests extends Testbase{
 
   @Test
   public void testContactModification(){
-    app.getContactHelper().selectContact();
+    app.getNavigationHelper().goToHomePage();
+    if (! app.getContactHelper().isThereAContact()){
+      app.getContactHelper().createContact(new ContactData("Anna","Petrova",
+              "Luxoft","Kyiv, Radyshcheva str. 10/14","0969365879",
+              "apetrova@luxoft.com","test1"),true);
+    }
+
     app.getContactHelper().initContactModification();
-    app.getContactHelper().fillContactForm(new ContactData("Anna", "Petrova","Luxoft","Kyiv, Radyshcheva str. 10/14", "0960000000", "apetrova@luxoft.com",null),false);
+    app.getContactHelper().fillContactForm(new ContactData("Anna", "Petrova",
+            "Luxoft","Kyiv, Radyshcheva str. 10/14", "0960000000",
+            "apetrova@luxoft.com",null),false);
     app.getContactHelper().submitContactModification();
     app.getContactHelper().returnToContactPage();
 
