@@ -3,14 +3,13 @@ package ru.stqa.frepo.addressbook.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.frepo.addressbook.model.ContactData;
-import ru.stqa.frepo.addressbook.model.GroupData;
 
 import java.util.List;
 
 public class ContactDeletionTests extends Testbase{
-  @Test
+  @Test(enabled = false)
   public void testContactDeletion(){
-    app.getNavigationHelper().goToHomePage();
+    app.goTo().goToHomePage();
     if (! app.getContactHelper().isThereAContact()){
       app.getContactHelper().createContact(new ContactData("Anna","Petrova",
               "Luxoft","Kyiv, Radyshcheva str. 10/14","0969365879",
@@ -29,7 +28,7 @@ public class ContactDeletionTests extends Testbase{
 
   @Test(enabled = false)
   public void testContactDeletionAll(){
-    app.getNavigationHelper().goToHomePage();
+    app.goTo().goToHomePage();
     if (! app.getContactHelper().isThereAContact()){
       app.getContactHelper().createContact(new ContactData("Anna","Petrova",
               "Luxoft","Kyiv, Radyshcheva str. 10/14","0969365879",

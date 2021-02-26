@@ -3,16 +3,15 @@ package ru.stqa.frepo.addressbook.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.frepo.addressbook.model.ContactData;
-import ru.stqa.frepo.addressbook.model.GroupData;
 
 import java.util.Comparator;
 import java.util.List;
 
 public class ContactModificationTests extends Testbase{
 
-  @Test
+  @Test(enabled = false)
   public void testContactModification(){
-    app.getNavigationHelper().goToHomePage();
+    app.goTo().goToHomePage();
     if (! app.getContactHelper().isThereAContact()){
       app.getContactHelper().createContact(new ContactData("Anna","Petrova",
               "Luxoft","Kyiv, Radyshcheva str. 10/14","0969365879",
