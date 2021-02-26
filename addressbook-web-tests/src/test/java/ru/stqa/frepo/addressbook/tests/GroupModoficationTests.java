@@ -1,9 +1,12 @@
 package ru.stqa.frepo.addressbook.tests;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.frepo.addressbook.model.GroupData;
+import ru.stqa.frepo.addressbook.model.Groups;
 
 import java.util.Comparator;
 import java.util.List;
@@ -21,17 +24,15 @@ public class GroupModoficationTests extends Testbase{
 
   @Test
   public void testGroupModification(){
-    Set<GroupData> before = app.group().all();
+    Groups before = app.group().all();
     GroupData modifiedGroup = before.iterator().next();
     GroupData group = new GroupData().withId(modifiedGroup.getId())
             .withName("test1").withHeader("test2").withFooter("test3");
 
     app.group().modify(group);
-    Set<GroupData> after = app.group().all();
+    Groups after = app.group().all();
     Assert.assertEquals(after.size(),before.size());
-    before.remove(modifiedGroup);
-    before.add(group);
-    Assert.assertEquals(before,after);
+    MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.withOut(modifiedGroup).withAdded(group)));
   }
 
 
