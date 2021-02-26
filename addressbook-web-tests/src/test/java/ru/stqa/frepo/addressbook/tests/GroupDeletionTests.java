@@ -1,9 +1,12 @@
 package ru.stqa.frepo.addressbook.tests;
 
 import javafx.scene.effect.SepiaTone;
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import ru.stqa.frepo.addressbook.model.GroupData;
+import ru.stqa.frepo.addressbook.model.Groups;
 
 import java.util.List;
 import java.util.Set;
@@ -21,17 +24,16 @@ public class GroupDeletionTests extends Testbase{
 
   @Test
   public void testGroupDeletion() throws Exception {
-    Set<GroupData> before = app.group().all();
+    Groups before = app.group().all();
     GroupData deletedGroup = before.iterator().next();
     app.group().delete(deletedGroup);
-    Set<GroupData> after = app.group().all();
+    Groups after = app.group().all();
 
     Assert.assertEquals(after.size(),before.size() - 1);
-    before.remove(deletedGroup);
     /*for (int i = 0; i < after.size(); i++){
       Assert.assertEquals(before.get(i),after.get(i));
     }*/
-    Assert.assertEquals(before,after);
+    MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.withOut(deletedGroup)));
   }
 
 
