@@ -1,38 +1,47 @@
 package ru.stqa.frepo.addressbook.tests;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.frepo.addressbook.model.ContactData;
+import ru.stqa.frepo.addressbook.model.Contacts;
 
 import java.util.List;
+import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.equalTo;
 
 public class ContactDeletionTests extends Testbase{
-  @Test(enabled = false)
-  public void testContactDeletion(){
+  @BeforeMethod
+  public void ensurePreconditions(){
     app.goTo().goToHomePage();
     if (! app.getContactHelper().isThereAContact()){
-      app.getContactHelper().createContact(new ContactData("Anna","Petrova",
-              "Luxoft","Kyiv, Radyshcheva str. 10/14","0969365879",
-              "apetrova@luxoft.com","test1"),true);
+      app.getContactHelper().createContact(new ContactData().withFirstname("Anna")
+              .withLastname("Petrova").withCompany("Luxoft").withAddress("Kyiv, Radyshcheva str. 10/14")
+              .withMobile("0969365879").withEmail("apetrova@luxoft.com").withGroup("test1"),true);
     }
-    List<ContactData> before = app.getContactHelper().getContactList();
-    app.getContactHelper().selectContact(before.size() - 1);
-    app.getContactHelper().deleteSelectedContact();
-    app.alertClose();
-    List<ContactData> after = app.getContactHelper().getContactList();
-    Assert.assertEquals(after.size(),before.size() - 1);
-    before.remove(before.size() -1);
-    Assert.assertEquals(before,after);
+  }
 
+  @Test
+  public void testContactDeletion(){
+    Contacts before = app.getContactHelper().getContactSet();
+    ContactData deletedContact = before.iterator().next();
+    app.getContactHelper().deleteContact(deletedContact);
+    app.alertClose();
+    Contacts after = app.getContactHelper().getContactSet();
+    MatcherAssert.assertThat(after.size(), equalTo(before.size() - 1));
+    MatcherAssert.assertThat(after, equalTo(before.withOut(deletedContact)));
   }
 
   @Test(enabled = false)
   public void testContactDeletionAll(){
     app.goTo().goToHomePage();
     if (! app.getContactHelper().isThereAContact()){
-      app.getContactHelper().createContact(new ContactData("Anna","Petrova",
-              "Luxoft","Kyiv, Radyshcheva str. 10/14","0969365879",
-              "apetrova@luxoft.com","test1"),true);
+      app.getContactHelper().createContact(new ContactData().withFirstname("Anna")
+              .withLastname("Petrova").withCompany("Luxoft").withAddress("Kyiv, Radyshcheva str. 10/14")
+              .withMobile("0969365879").withEmail("apetrova@luxoft.com").withGroup("test1"),true);
     }
     app.getContactHelper().selectAllContacts();
     app.getContactHelper().deleteSelectedContact();

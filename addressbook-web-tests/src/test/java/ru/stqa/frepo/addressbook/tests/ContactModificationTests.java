@@ -1,45 +1,41 @@
 package ru.stqa.frepo.addressbook.tests;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.frepo.addressbook.model.ContactData;
+import ru.stqa.frepo.addressbook.model.Contacts;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.equalTo;
 
 public class ContactModificationTests extends Testbase{
-
-  @Test(enabled = false)
-  public void testContactModification(){
+  @BeforeMethod
+  public void ensurePreconditions(){
     app.goTo().goToHomePage();
     if (! app.getContactHelper().isThereAContact()){
-      app.getContactHelper().createContact(new ContactData("Anna","Petrova",
-              "Luxoft","Kyiv, Radyshcheva str. 10/14","0969365879",
-              "apetrova@luxoft.com","test1"),true);
+      app.getContactHelper().createContact(new ContactData().withFirstname("Anna")
+              .withLastname("Petrova").withCompany("Luxoft").withAddress("Kyiv, Radyshcheva str. 10/14")
+              .withMobile("0969365879").withEmail("apetrova@luxoft.com").withGroup("test1"),true);
     }
-    List<ContactData> before = app.getContactHelper().getContactList();
-    app.getContactHelper().initContactModification(before.size()-1);
-    ContactData contact = new ContactData("Lena", "Petrova",
-            null,null, null, null,null);
-    app.getContactHelper().fillContactForm(contact,false);
-    app.getContactHelper().submitContactModification();
-    app.getContactHelper().returnToContactPage();
-    List<ContactData> after = app.getContactHelper().getContactList();
-    Assert.assertEquals(after.size(),before.size());
-
-    before.remove(before.size()-1);
-    before.add(contact);
-
-    Comparator<? super ContactData> byLastname = new Comparator<ContactData>() {
-      @Override
-      public int compare(ContactData o1, ContactData o2) {
-
-        return o1.getLastname().compareTo(o2.getLastname());
-      }
-    };
-    before.sort(byLastname);
-    after.sort(byLastname);
-    Assert.assertEquals(before,after);
-
   }
+
+  @Test
+  public void testContactModification(){
+
+    Contacts before = app.getContactHelper().getContactSet();
+    ContactData modifiedContact = before.iterator().next();
+    ContactData contact = new ContactData().withId(modifiedContact.getId()).withFirstname("Lena").withLastname("Mukha");
+    app.getContactHelper().modifyContactById(contact);
+    Contacts after = app.getContactHelper().getContactSet();
+    MatcherAssert.assertThat(after.size(), equalTo(before.size()));
+    MatcherAssert.assertThat(after, equalTo(before.withOut(modifiedContact).withAdded(contact)));
+  }
+
+
 }
