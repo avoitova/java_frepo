@@ -1,15 +1,9 @@
 package ru.stqa.frepo.addressbook.tests;
 
-import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.frepo.addressbook.model.ContactData;
 import ru.stqa.frepo.addressbook.model.Contacts;
-
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -22,7 +16,7 @@ public class ContactCreationTests extends Testbase{
     Contacts before = app.getContactHelper().getContactSet();
     ContactData contact = new ContactData().withFirstname("Anna")
             .withLastname("Petrova").withCompany("Luxoft").withAddress("Kyiv, Radyshcheva str. 10/14")
-            .withMobile("0969365879").withEmail("apetrova@luxoft.com").withGroup("test1");
+            .withMobilePhone("0969365879").withEmail("apetrova@luxoft.com").withGroup("test1");
     app.getContactHelper().createContact(contact,true);
     Contacts after = app.getContactHelper().getContactSet();
     MatcherAssert.assertThat(after.size(), equalTo(before.size()+1));

@@ -1,15 +1,10 @@
 package ru.stqa.frepo.addressbook.tests;
 
-import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.frepo.addressbook.model.ContactData;
 import ru.stqa.frepo.addressbook.model.Contacts;
-
-import java.util.List;
-import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 
@@ -17,10 +12,11 @@ public class ContactDeletionTests extends Testbase{
   @BeforeMethod
   public void ensurePreconditions(){
     app.goTo().goToHomePage();
-    if (! app.getContactHelper().isThereAContact()){
+    if (app.getContactHelper().getContactSet().size() == 0){
       app.getContactHelper().createContact(new ContactData().withFirstname("Anna")
               .withLastname("Petrova").withCompany("Luxoft").withAddress("Kyiv, Radyshcheva str. 10/14")
-              .withMobile("0969365879").withEmail("apetrova@luxoft.com").withGroup("test1"),true);
+              .withMobilePhone("0969365879").withEmail("apetrova@luxoft.com").withGroup("test1"),true);
+
     }
   }
 
@@ -41,7 +37,7 @@ public class ContactDeletionTests extends Testbase{
     if (! app.getContactHelper().isThereAContact()){
       app.getContactHelper().createContact(new ContactData().withFirstname("Anna")
               .withLastname("Petrova").withCompany("Luxoft").withAddress("Kyiv, Radyshcheva str. 10/14")
-              .withMobile("0969365879").withEmail("apetrova@luxoft.com").withGroup("test1"),true);
+              .withMobilePhone("0969365879").withEmail("apetrova@luxoft.com").withGroup("test1"),true);
     }
     app.getContactHelper().selectAllContacts();
     app.getContactHelper().deleteSelectedContact();

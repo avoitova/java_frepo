@@ -11,6 +11,8 @@ import ru.stqa.frepo.addressbook.model.Groups;
 import java.util.List;
 import java.util.Set;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+
 
 public class GroupDeletionTests extends Testbase{
 
@@ -27,9 +29,8 @@ public class GroupDeletionTests extends Testbase{
     Groups before = app.group().all();
     GroupData deletedGroup = before.iterator().next();
     app.group().delete(deletedGroup);
+    MatcherAssert.assertThat(app.group().count(), equalTo(before.size()-1));
     Groups after = app.group().all();
-
-    Assert.assertEquals(after.size(),before.size() - 1);
     /*for (int i = 0; i < after.size(); i++){
       Assert.assertEquals(before.get(i),after.get(i));
     }*/

@@ -12,6 +12,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+
 public class GroupModoficationTests extends Testbase{
 
   @BeforeMethod
@@ -30,8 +32,8 @@ public class GroupModoficationTests extends Testbase{
             .withName("test1").withHeader("test2").withFooter("test3");
 
     app.group().modify(group);
+    MatcherAssert.assertThat(app.group().count(), equalTo(before.size()));
     Groups after = app.group().all();
-    Assert.assertEquals(after.size(),before.size());
     MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.withOut(modifiedGroup).withAdded(group)));
   }
 
