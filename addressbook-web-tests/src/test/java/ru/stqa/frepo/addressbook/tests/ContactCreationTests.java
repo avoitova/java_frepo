@@ -60,7 +60,7 @@ public class ContactCreationTests extends Testbase{
   @Test(dataProvider = "validContactsFromXml")
   public void testContactCreation(ContactData contact){
     app.goTo().goToHomePage();
-    File photo = new File("src/test/resources/stru.png");
+   // File photo = new File("src/test/resources/stru.png");
     Contacts before = app.getContactHelper().getContactSet();
     app.getContactHelper().createContact(contact,true);
     Contacts after = app.getContactHelper().getContactSet();
