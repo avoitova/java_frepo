@@ -1,17 +1,29 @@
 <list>
-  <group>
-    <name>test 0</name>
-    <header>header 0</header>
-    <footer>footer 0</footer>
-  </group>
-  <group>
-    <name>test 1</name>
-    <header>header 1</header>
-    <footer>footer 1</footer>
-  </group>
-  <group>
-    <name>test 2</name>
-    <header>header 2</header>
-    <footer>footer 2</footer>
-  </group>
+  <ru.stqa.frepo.addressbook.model.ContactData>
+    <id>2147483647</id>
+    <firstname>Firstname 0</firstname>
+    <lastname>Lastname 0</lastname>
+    <company>Company 0</company>
+    <address>Address 0</address>
+    <email>email0@company.com</email>
+    <work>0969604830</work>
+  </ru.stqa.frepo.addressbook.model.ContactData>
+  <ru.stqa.frepo.addressbook.model.ContactData>
+    <id>2147483647</id>
+    <firstname>Firstname 1</firstname>
+    <lastname>Lastname 1</lastname>
+    <company>Company 1</company>
+    <address>Address 1</address>
+    <email>email1@company.com</email>
+    <work>0969604831</work>
+  </ru.stqa.frepo.addressbook.model.ContactData>
+  <ru.stqa.frepo.addressbook.model.ContactData>
+    <id>2147483647</id>
+    <firstname>Firstname 2</firstname>
+    <lastname>Lastname 2</lastname>
+    <company>Company 2</company>
+    <address>Address 2</address>
+    <email>email2@company.com</email>
+    <work>0969604832</work>
+  </ru.stqa.frepo.addressbook.model.ContactData>
 </list>
