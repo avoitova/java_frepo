@@ -8,7 +8,11 @@ import org.testng.annotations.*;
 import ru.stqa.frepo.addressbook.model.GroupData;
 import ru.stqa.frepo.addressbook.model.Groups;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -16,16 +20,17 @@ import static org.hamcrest.CoreMatchers.equalTo;
 
 public class GroupDeletionTests extends Testbase{
 
+
   @BeforeMethod
-  public void ensurePreconditions(){
+  public void ensurePreconditions()  {
     app.goTo().groupPage();
     if (app.group().all().size()==0){
-      app.group().create(new GroupData().withName("test1"));
+      app.group().create(new GroupData().withName(app.getProperties().getProperty("GroupCreationName")));
     }
   }
 
   @Test
-  public void testGroupDeletion() throws Exception {
+  public void testGroupDeletion() {
     Groups before = app.group().all();
     GroupData deletedGroup = before.iterator().next();
     app.group().delete(deletedGroup);

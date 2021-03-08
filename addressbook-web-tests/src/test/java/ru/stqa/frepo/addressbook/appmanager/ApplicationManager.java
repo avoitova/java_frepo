@@ -17,6 +17,10 @@ import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
 
+  public Properties getProperties() {
+    return properties;
+  }
+
   private final Properties properties;
   private String browser;
   public WebDriver wd;
