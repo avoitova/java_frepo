@@ -5,6 +5,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.frepo.addressbook.model.ContactData;
 import ru.stqa.frepo.addressbook.model.Contacts;
+import ru.stqa.frepo.addressbook.model.GroupData;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,8 +19,8 @@ public class ContactModificationTests extends Testbase{
 
   @BeforeMethod
   public void ensurePreconditions() {
-    app.goTo().goToHomePage();
-    if (app.getContactHelper().getContactSet().size() == 0){
+    if (app.db().contacts().size()==0){
+      app.goTo().goToHomePage();
       app.getContactHelper().createContact(new ContactData()
               .withFirstname(app.getProperties().getProperty("ContactCreationFirstname"))
               .withLastname(app.getProperties().getProperty("ContactCreationLastname"))
@@ -28,22 +29,27 @@ public class ContactModificationTests extends Testbase{
               .withMobilePhone(app.getProperties().getProperty("ContactCreationMobile"))
               .withEmail(app.getProperties().getProperty("ContactCreationEmail"))
               .withGroup(app.getProperties().getProperty("ContactCreationGroup")),true);
+    }
 
       /*.withFirstname("Anna").withLastname("Petrova").withCompany("Luxoft").withAddress("Kyiv, Radyshcheva str. 10/14")
               .withMobilePhone("0969365879").withEmail("apetrova@luxoft.com").withGroup("test1"),true);*/
-    }
   }
 
   @Test
   public void testContactModification(){
 
-    Contacts before = app.getContactHelper().getContactSet();
+    Contacts before = app.db().contacts();
     ContactData modifiedContact = before.iterator().next();
+    /*
     ContactData contact = new ContactData().withId(modifiedContact.getId())
             .withFirstname(app.getProperties().getProperty("ContactModificationFirstname"))
             .withLastname(app.getProperties().getProperty("ContactModificationLastname"));
+     */
+    ContactData contact = new ContactData(modifiedContact);
+
+    app.goTo().goToHomePage();
     app.getContactHelper().modifyContactById(contact);
-    Contacts after = app.getContactHelper().getContactSet();
+    Contacts after = app.db().contacts();
     MatcherAssert.assertThat(after.size(), equalTo(before.size()));
     MatcherAssert.assertThat(after, equalTo(before.withOut(modifiedContact).withAdded(contact)));
   }

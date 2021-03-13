@@ -3,50 +3,120 @@ package ru.stqa.frepo.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 
+
+@Entity
+@Table (name = "addressbook")
 @XStreamAlias("contact")
 public class ContactData {
+
   @XStreamOmitField
+  @Id
+  @Column (name = "id")
   private  int id = Integer.MAX_VALUE;
+
   @Expose
+  @Column (name = "firstname")
   private  String firstname;
+
   @Expose
+  @Column (name = "lastname")
   private  String lastname;
+
   @Expose
+  @Column (name = "company")
   private  String company;
+
   @Expose
+  @Column (name = "address")
+  @Type(type = "text")
   private  String address;
+
   @Expose
+  @Column (name = "mobile")
+  @Type(type = "text")
   private  String mobile;
+
   @Expose
+  @Type(type = "text")
   private  String email;
+
   @Expose
+  @Type(type = "text")
   private  String email2;
+
   @Expose
+  @Type(type = "text")
   private  String email3;
+
+  public ContactData() {
+  }
+
+  public ContactData(ContactData other) {
+    this.id = other.id;
+    this.firstname = other.firstname;
+    this.lastname = other.lastname;
+    this.company = other.company;
+    this.address = other.address;
+    this.mobile = other.mobile;
+    this.email = other.email;
+    this.email2 = other.email2;
+    this.email3 = other.email3;
+    this.group = other.group;
+    this.home = other.home;
+    this.work = other.work;
+    this.allPhones = other.allPhones;
+    this.allEmails = other.allEmails;
+    this.allAddress = other.allAddress;
+    this.photo = other.photo;
+  }
+
   @Expose
+  @Transient
   private String group;
+
   @Expose
+  @Column (name = "home")
+  @Type(type = "text")
   private String home;
+
   @Expose
+  @Column (name = "work")
+  @Type(type = "text")
   private String work;
+
   @Expose
+  @Transient
   private String allPhones;
+
   @Expose
+  @Transient
   private  String allEmails;
+
   @Expose
+  @Transient
   private String allAddress;
+
   @Expose
-  private File photo;
+  @Column (name = "photo")
+  @Type(type = "text")
+  private String photo;
+
 
   public File getPhoto() {
-    return photo;
+    if (photo != null && !photo.isEmpty()) {
+      return new File(photo);
+    }else {
+      return null;
+    }
   }
 
   public ContactData withPhoto(File photo) {
-    this.photo = photo;
+    this.photo = photo.getPath();
     return this;
   }
 
@@ -165,11 +235,6 @@ public class ContactData {
     return group;
   }
 
-  public String getAllEmails() {
-    return allEmails;
-  }
-
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -179,7 +244,8 @@ public class ContactData {
 
     if (id != that.id) return false;
     if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
-    return lastname != null ? lastname.equals(that.lastname) : that.lastname == null;
+    if (lastname != null ? !lastname.equals(that.lastname) : that.lastname != null) return false;
+    return address != null ? address.equals(that.address) : that.address == null;
   }
 
   @Override
@@ -187,6 +253,24 @@ public class ContactData {
     int result = id;
     result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
     result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
+    result = 31 * result + (address != null ? address.hashCode() : 0);
     return result;
   }
+
+  @Override
+  public String toString() {
+    return "ContactData{" +
+            "id=" + id +
+            ", firstname='" + firstname + '\'' +
+            ", lastname='" + lastname + '\'' +
+            ", address='" + address + '\'' +
+            ", mobile='" + mobile + '\'' +
+            ", email='" + email + '\'' +
+            '}';
+  }
+
+  public String getAllEmails() {
+    return allEmails;
+  }
+
 }
