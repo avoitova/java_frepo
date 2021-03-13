@@ -26,8 +26,8 @@ public class ContactDeletionTests extends Testbase{
               .withCompany(app.getProperties().getProperty("ContactCreationCompany"))
               .withAddress(app.getProperties().getProperty("ContactCreationAddress"))
               .withMobilePhone(app.getProperties().getProperty("ContactCreationMobile"))
-              .withEmail(app.getProperties().getProperty("ContactCreationEmail"))
-              .withGroup(app.getProperties().getProperty("ContactCreationGroup")),true);
+              .withEmail(app.getProperties().getProperty("ContactCreationEmail")),true);
+              //.withGroup(app.getProperties().getProperty("ContactCreationGroup")),true);
     }
   }
 
@@ -50,7 +50,8 @@ public class ContactDeletionTests extends Testbase{
     if (! app.getContactHelper().isThereAContact()){
       app.getContactHelper().createContact(new ContactData().withFirstname("Anna")
               .withLastname("Petrova").withCompany("Luxoft").withAddress("Kyiv, Radyshcheva str. 10/14")
-              .withMobilePhone("0969365879").withEmail("apetrova@luxoft.com").withGroup("test1"),true);
+              .withMobilePhone("0969365879").withEmail("apetrova@luxoft.com"),true);
+             // .withGroup("test1"),true);
     }
     app.getContactHelper().selectAllContacts();
     app.getContactHelper().deleteSelectedContact();

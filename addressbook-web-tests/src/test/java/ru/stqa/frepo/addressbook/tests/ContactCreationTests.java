@@ -8,6 +8,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.frepo.addressbook.model.ContactData;
 import ru.stqa.frepo.addressbook.model.Contacts;
+import ru.stqa.frepo.addressbook.model.Groups;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -59,6 +60,7 @@ public class ContactCreationTests extends Testbase{
 
   @Test(dataProvider = "validContactsFromXml")
   public void testContactCreation(ContactData contact){
+    Groups groups = app.db().groups();
     app.goTo().goToHomePage();
    // File photo = new File("src/test/resources/stru.png");
     Contacts before = app.db().contacts();

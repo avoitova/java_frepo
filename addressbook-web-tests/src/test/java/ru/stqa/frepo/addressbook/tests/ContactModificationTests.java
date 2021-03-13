@@ -27,8 +27,8 @@ public class ContactModificationTests extends Testbase{
               .withCompany(app.getProperties().getProperty("ContactCreationCompany"))
               .withAddress(app.getProperties().getProperty("ContactCreationAddress"))
               .withMobilePhone(app.getProperties().getProperty("ContactCreationMobile"))
-              .withEmail(app.getProperties().getProperty("ContactCreationEmail"))
-              .withGroup(app.getProperties().getProperty("ContactCreationGroup")),true);
+              .withEmail(app.getProperties().getProperty("ContactCreationEmail")),true);
+              //.withGroup(app.getProperties().getProperty("ContactCreationGroup")),true);
     }
 
       /*.withFirstname("Anna").withLastname("Petrova").withCompany("Luxoft").withAddress("Kyiv, Radyshcheva str. 10/14")

@@ -7,6 +7,8 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -53,31 +55,6 @@ public class ContactData {
   @Type(type = "text")
   private  String email3;
 
-  public ContactData() {
-  }
-
-  public ContactData(ContactData other) {
-    this.id = other.id;
-    this.firstname = other.firstname;
-    this.lastname = other.lastname;
-    this.company = other.company;
-    this.address = other.address;
-    this.mobile = other.mobile;
-    this.email = other.email;
-    this.email2 = other.email2;
-    this.email3 = other.email3;
-    this.group = other.group;
-    this.home = other.home;
-    this.work = other.work;
-    this.allPhones = other.allPhones;
-    this.allEmails = other.allEmails;
-    this.allAddress = other.allAddress;
-    this.photo = other.photo;
-  }
-
-  @Expose
-  @Transient
-  private String group;
 
   @Expose
   @Column (name = "home")
@@ -106,6 +83,31 @@ public class ContactData {
   @Type(type = "text")
   private String photo;
 
+  @ManyToMany(fetch=FetchType.EAGER)
+  @JoinTable(name = "address_in_groups",
+          joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+  private Set<GroupData> groups = new HashSet<GroupData>();
+
+  public ContactData() {
+  }
+
+  public ContactData(ContactData other) {
+    this.id = other.id;
+    this.firstname = other.firstname;
+    this.lastname = other.lastname;
+    this.company = other.company;
+    this.address = other.address;
+    this.mobile = other.mobile;
+    this.email = other.email;
+    this.email2 = other.email2;
+    this.email3 = other.email3;
+    this.home = other.home;
+    this.work = other.work;
+    this.allPhones = other.allPhones;
+    this.allEmails = other.allEmails;
+    this.allAddress = other.allAddress;
+    this.photo = other.photo;
+  }
 
   public File getPhoto() {
     if (photo != null && !photo.isEmpty()) {
@@ -171,10 +173,8 @@ public class ContactData {
     this.allEmails = allEmails;
     return this;
   }
-  public ContactData withGroup(String group) {
-    this.group = group;
-    return this;
-  }
+
+
   public ContactData withHomePhone(String home) {
     this.home = home;
     return this;
@@ -231,8 +231,8 @@ public class ContactData {
     return email3;
   }
 
-  public String getGroup() {
-    return group;
+  public Groups getGroups() {
+    return new Groups(groups);
   }
 
   @Override

@@ -43,7 +43,9 @@ public class GroupModoficationTests extends Testbase{
     MatcherAssert.assertThat(app.group().count(), equalTo(before.size()));
     Groups after = app.db().groups();
     MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.withOut(modifiedGroup).withAdded(group)));
+    verifyGroupListInUI();
   }
+
 
 
 }
