@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import ru.stqa.frepo.addressbook.model.ContactData;
 import ru.stqa.frepo.addressbook.model.Contacts;
 import ru.stqa.frepo.addressbook.model.GroupData;
+import ru.stqa.frepo.addressbook.model.Groups;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,6 +20,7 @@ public class ContactModificationTests extends Testbase{
 
   @BeforeMethod
   public void ensurePreconditions() {
+    Groups groups = app.db().groups();
     if (app.db().contacts().size()==0){
       app.goTo().goToHomePage();
       app.getContactHelper().createContact(new ContactData()
@@ -27,8 +29,8 @@ public class ContactModificationTests extends Testbase{
               .withCompany(app.getProperties().getProperty("ContactCreationCompany"))
               .withAddress(app.getProperties().getProperty("ContactCreationAddress"))
               .withMobilePhone(app.getProperties().getProperty("ContactCreationMobile"))
-              .withEmail(app.getProperties().getProperty("ContactCreationEmail")),true);
-              //.withGroup(app.getProperties().getProperty("ContactCreationGroup")),true);
+              .withEmail(app.getProperties().getProperty("ContactCreationEmail"))
+              .inGroup(groups.iterator().next()),true);
     }
 
       /*.withFirstname("Anna").withLastname("Petrova").withCompany("Luxoft").withAddress("Kyiv, Radyshcheva str. 10/14")

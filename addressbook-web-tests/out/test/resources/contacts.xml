@@ -6,7 +6,6 @@
     <address>Address 0</address>
     <mobile>0969604830</mobile>
     <email>email0@company.com</email>
-    <group>test1</group>
   </contact>
   <contact>
     <firstname>Firstname 1</firstname>
@@ -15,7 +14,6 @@
     <address>Address 1</address>
     <mobile>0969604831</mobile>
     <email>email1@company.com</email>
-    <group>test1</group>
   </contact>
   <contact>
     <firstname>Firstname 2</firstname>
@@ -24,6 +22,5 @@
     <address>Address 2</address>
     <mobile>0969604832</mobile>
     <email>email2@company.com</email>
-    <group>test1</group>
   </contact>
 </list>

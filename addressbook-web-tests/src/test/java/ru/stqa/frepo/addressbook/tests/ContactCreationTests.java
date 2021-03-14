@@ -64,6 +64,7 @@ public class ContactCreationTests extends Testbase{
     app.goTo().goToHomePage();
    // File photo = new File("src/test/resources/stru.png");
     Contacts before = app.db().contacts();
+    contact.inGroup(groups.iterator().next());
     app.getContactHelper().createContact(contact,true);
     Contacts after = app.db().contacts();
     MatcherAssert.assertThat(after.size(), equalTo(before.size()+1));

@@ -273,4 +273,10 @@ public class ContactData {
     return allEmails;
   }
 
+  public ContactData inGroup(GroupData group){
+    if (groups == null) groups = new HashSet<GroupData>();
+    groups.add(group);
+    return this;
+  }
+
 }
