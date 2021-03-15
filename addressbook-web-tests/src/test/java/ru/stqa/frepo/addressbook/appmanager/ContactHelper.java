@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.frepo.addressbook.model.ContactData;
 import ru.stqa.frepo.addressbook.model.Contacts;
+import ru.stqa.frepo.addressbook.model.GroupData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -171,5 +172,18 @@ public class ContactHelper extends HelperBase{
     return new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname).
             withAddress(address).withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work)
             .withEmail(email).withEmail2(email2).withEmail3(email3);
+  }
+  public void addGroupToContact(ContactData contact, GroupData group){
+    new Select(wd.findElement(By.name("group"))).selectByVisibleText("[all]");
+    selectContactById(contact.getId());
+    new Select(wd.findElement(By.name("to_group")))
+            .selectByVisibleText(group.getName());
+    click(By.name("add"));
+  }
+  public void deleteGroupFromContact(ContactData contact, GroupData group){
+    new Select(wd.findElement(By.name("group")))
+            .selectByVisibleText(group.getName());
+    selectContactById(contact.getId());
+    click(By.name("remove"));
   }
 }
