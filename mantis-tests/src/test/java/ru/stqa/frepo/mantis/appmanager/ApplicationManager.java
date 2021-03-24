@@ -17,6 +17,9 @@ import java.util.regex.MatchResult;
 public class ApplicationManager {
 
   private RegistrationHelper registrationHelper;
+  private FtpHelper ftp;
+  private MailHelper mailHelper;
+  private JamesHelper jamesHelper;
 
   public Properties getProperties() {
     return properties;
@@ -57,6 +60,13 @@ public class ApplicationManager {
     return properties.getProperty(key);
   }
 
+  public FtpHelper ftp(){
+    if (ftp == null) {
+      ftp = new FtpHelper(this);
+    }
+    return ftp;
+  }
+
   public RegistrationHelper registration() {
     if (registrationHelper == null){
       registrationHelper = new RegistrationHelper(this);
@@ -77,5 +87,19 @@ public class ApplicationManager {
       wd.get(properties.getProperty("web.baseUrl"));
     }
     return wd;
+  }
+
+  public MailHelper mail(){
+    if (mailHelper ==null){
+      mailHelper = new MailHelper(this);
+    }
+    return mailHelper;
+  }
+
+  public JamesHelper james(){
+    if (jamesHelper == null ){
+      jamesHelper = new JamesHelper(this);
+    }
+    return jamesHelper;
   }
 }
