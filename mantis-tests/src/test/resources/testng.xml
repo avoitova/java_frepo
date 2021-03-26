@@ -4,6 +4,7 @@
     <test name="Login" >
         <classes>
             <class name="ru.stqa.frepo.mantis.tests.LoginTests"/>
+            <class name="ru.stqa.frepo.mantis.tests.PasswordChangingTests"/>
         </classes>
     </test>
 </suite>

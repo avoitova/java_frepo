@@ -32,10 +32,10 @@ public class JamesHelper {
 
   public boolean doesUserexist(String name){
     initTelnetSession();
-    write("verify" + name);
+    write("verify " + name);
     String result = readUntil("exist");
     closeTelnetSession();
-    return result.trim().equals("User" + name + "exist");
+    return result.trim().equals("User " + name + " exist");
   }
 
   public void createUser(String name, String passwd){
