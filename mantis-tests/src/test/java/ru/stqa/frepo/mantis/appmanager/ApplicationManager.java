@@ -22,6 +22,7 @@ public class ApplicationManager {
   private JamesHelper jamesHelper;
   private LoginHelper loginhelper;
   private NavigationHelper navigationhelper;
+  private SoapHelper soaphelper;
 
   public Properties getProperties() {
     return properties;
@@ -117,5 +118,12 @@ public class ApplicationManager {
       navigationhelper = new NavigationHelper(this);
     }
     return navigationhelper;
+  }
+
+  public SoapHelper soap() {
+    if (soaphelper == null){
+      soaphelper = new SoapHelper(this);
+    }
+    return soaphelper;
   }
 }
