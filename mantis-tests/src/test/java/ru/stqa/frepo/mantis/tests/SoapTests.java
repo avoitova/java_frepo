@@ -7,7 +7,6 @@ import ru.stqa.frepo.mantis.model.Project;
 
 import javax.xml.rpc.ServiceException;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.Set;
 
@@ -29,7 +28,7 @@ public class SoapTests {
     Set<Project> projects = app.soap().getProjects();
     Issue issue = new Issue().withSummary("Test issue").withDescription("Test issue description")
             .withProject(projects.iterator().next());
-    Issue created = app.soap().addIsuue(issue);
+    Issue created = app.soap().addIssue(issue);
     Assert.assertEquals(issue.getSummary(), created.getSummary());
   }
 }
