@@ -23,6 +23,7 @@ public class ApplicationManager {
   private LoginHelper loginhelper;
   private NavigationHelper navigationhelper;
   private SoapHelper soaphelper;
+  private RestHelper resthelper;
 
   public Properties getProperties() {
     return properties;
@@ -125,5 +126,12 @@ public class ApplicationManager {
       soaphelper = new SoapHelper(this);
     }
     return soaphelper;
+  }
+
+  public RestHelper rest() {
+    if (resthelper == null){
+      resthelper = new RestHelper(this);
+    }
+    return resthelper;
   }
 }

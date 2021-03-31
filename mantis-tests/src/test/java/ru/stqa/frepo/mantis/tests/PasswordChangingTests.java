@@ -17,6 +17,7 @@ import ru.stqa.frepo.mantis.model.MailMessage;
 import ru.stqa.frepo.mantis.model.UserData;
 
 import javax.mail.MessagingException;
+import javax.xml.rpc.ServiceException;
 import java.io.IOException;
 import java.util.List;
 
@@ -46,7 +47,8 @@ public class PasswordChangingTests extends Testbase{
   }
 
   @Test
-  public void testPasswordChanging() throws IOException, MessagingException {
+  public void testPasswordChanging() throws IOException, MessagingException, ServiceException {
+    skipIfNotFixed(795);
     WebDriver wd = app.getDriver();
     app.login().start("administrator","root");
     app.navigate().goToManageMenu();

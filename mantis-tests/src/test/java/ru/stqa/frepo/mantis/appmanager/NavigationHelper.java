@@ -12,7 +12,8 @@ public class NavigationHelper extends HelperBase{
 
 
   public void goToManageMenu(){
-    click(By.xpath("//a[@class='manage-menu-link']"));
+    click(By.linkText("Manage"));
+    //click(By.xpath("//a[@class='manage-menu-link']"));
   }
 
   public void goToManageUsers() {
