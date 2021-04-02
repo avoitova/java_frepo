@@ -10,6 +10,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.client.LaxRedirectStrategy;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.openqa.selenium.By;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,8 +36,8 @@ public class HttpSession {
     CloseableHttpResponse response = httpClient.execute(post);
     String body = geTextFrom(response);
     //return body.contains(String.format("<span class=\"italic\">%s</span>", username));
-    
-    boolean ret = body.contains(String.format("<span id=\"logged-in-user\">%s</span>", username));
+    boolean ret = body.contains(String.format("<span class=\"user-info\">%s</span>",username));
+    //boolean ret = body.contains(String.format("<span id=\"logged-in-user\">%s</span>", username));
 
     return ret;
   }
@@ -51,7 +52,7 @@ public class HttpSession {
     HttpGet get = new HttpGet(app.getProperty("web.baseUrl") + "/index.php");
     CloseableHttpResponse response = httpClient.execute(get);
     String body = geTextFrom(response);
-    return body.contains(String.format("<span id=\"logged-in-user\">%s</span>", username));
+    return body.contains(String.format("<span class=\"user-info\">%s</span>",username));
 
   }
 }

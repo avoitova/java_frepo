@@ -48,14 +48,16 @@ public class PasswordChangingTests extends Testbase{
 
   @Test
   public void testPasswordChanging() throws IOException, MessagingException, ServiceException {
-    skipIfNotFixed(795);
+    //skipIfNotFixed(795);
     WebDriver wd = app.getDriver();
     app.login().start("administrator","root");
     app.navigate().goToManageMenu();
     app.navigate().goToManageUsers();
 
     List<UserData> result = dbUserList();
-    UserData userForPasswordChange = result.get(result.size()-1);
+    result.remove(0);
+    UserData userForPasswordChange = result.iterator().next();
+    //UserData userForPasswordChange = result.get(result.size()-3);
     String username = userForPasswordChange.getUsername();
     String password = "password";
     String email = userForPasswordChange.getEmail();
