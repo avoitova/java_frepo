@@ -55,7 +55,7 @@ public class PasswordChangingTests extends Testbase{
     app.navigate().goToManageUsers();
 
     List<UserData> result = dbUserList();
-    result.remove(0);
+    //result.remove(0);
     UserData userForPasswordChange = result.iterator().next();
     //UserData userForPasswordChange = result.get(result.size()-3);
     String username = userForPasswordChange.getUsername();
@@ -84,7 +84,8 @@ public class PasswordChangingTests extends Testbase{
   public List<UserData> dbUserList(){
     Session session = sessionFactory.openSession();
     session.beginTransaction();
-    List<UserData> result = session.createQuery( "from UserData" ).list();
+    //List<UserData> result = session.createQuery( "from UserData" ).list();
+    List<UserData> result = session.createQuery( "from UserData U where U.username != 'administrator'" ).list();
     for ( UserData user :  result ) {
       System.out.println( user);
     }
